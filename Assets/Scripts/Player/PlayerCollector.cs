@@ -1,16 +1,29 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro; // Bu satýr çok önemli!
+
+
 
 public class PlayerCollector : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+        [SerializeField] private TextMeshProUGUI scoreText;
 
-    // Update is called once per frame
-    void Update()
+         private int score = 0;
+
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("Collectible"))
+        {
+            score++;
+
+            // UI güncelle
+            if (scoreText != null)
+            {
+                scoreText.text = "Score: " + score;
+            }
+
+            // Nesneyi yok et
+            Destroy(other.gameObject);
+        }
     }
 }

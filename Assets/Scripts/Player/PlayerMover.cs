@@ -1,26 +1,39 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerMover : MonoBehaviour
 {
     private Rigidbody _rigidbody;
-    
-    [Header("Movement Parameters")]
-    [field: SerializeField] public float MoveSpeed { get; private set; }
-    [SerializeField] private float _turnSpeed;
-    
+    private PlayerInput _playerInput;
+    private InputAction _moveAction;
+
+    [Header("Movement Settings")]
+    [field: SerializeField] public float MoveSpeed { get; private set; } = 5f;
+    [SerializeField] private float _turnSpeed = 180f;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _playerInput = GetComponent<PlayerInput>();
+        _moveAction = _playerInput.actions.FindAction("Move");
+        _moveAction.Enable();
     }
 
-    public void Move(Vector2 direction)
+    private void Update()
     {
-        float moveX = direction.x;
-        float moveZ = direction.y;
+        Vector2 input = _moveAction.ReadValue<Vector2>();
+        HandleMovement(input);
+    }
 
-        transform.Rotate(Vector3.up, moveX * _turnSpeed * Time.deltaTime, Space.World);
-        
-        _rigidbody.linearVelocity = transform.forward * (moveZ * MoveSpeed);
+    private void HandleMovement(Vector2 direction)
+    {
+        // Rotation
+        float rotationAmount = direction.x * _turnSpeed * Time.deltaTime;
+        transform.Rotate(Vector3.up, rotationAmount);
+
+        // Movement
+        Vector3 moveDirection = transform.forward * (direction.y * MoveSpeed);
+        _rigidbody.linearVelocity = new Vector3(moveDirection.x, _rigidbody.linearVelocity.y, moveDirection.z);
     }
 }
