@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
 
     [SerializeField] private PelletSpawner _pelletSpawner;
     [SerializeField] private PelletCollector _pelletCollector;
+    private BombSpawner _bombSpawner;
 
     private float _timer;
     private bool _gameEnded = false;
@@ -49,7 +50,9 @@ public class GameController : MonoBehaviour
         _timer = gameDuration;       
         _gameOverScreen.SetActive(false);
        // _pelletCollector.ResetCounter();
-        _pelletSpawner.SpawnPellets(); 
+        _pelletSpawner.SpawnPellets();
+        _bombSpawner.SpawnOneBomb(); 
+         _bombSpawner.SpawnBombsInitial();
     }
 
 

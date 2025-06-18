@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
@@ -39,10 +39,19 @@ public class PelletCollector : MonoBehaviour
         _numberCollected = 0;
         _counter.text = "0";
     }
-  
+    public void BombHit()
+    {
+        Debug.Log($"ðŸ’£ Bomb hit! Before: {_numberCollected}");
+        _audioSource.PlayOneShot(_audioSource.clip);      
+        _numberCollected--;
+        _counter.text = _numberCollected.ToString();
+
+    }
+
+
     public void PelletCollected()
     {
-        Debug.Log($"Toplanan: {_numberCollected} / Hedef: {_numberToCollect}");
+        
         _audioSource.PlayOneShot(_audioSource.clip);
         _numberCollected++;
         _counter.text = _numberCollected.ToString();
@@ -50,7 +59,7 @@ public class PelletCollector : MonoBehaviour
         
        // if (_numberCollected >= _numberToCollect)
        // {
-          //  Debug.Log("Tüm toplar toplandý, EndGame() çaðrýlýyor.");
+          //  Debug.Log("TÃ¼m toplar toplandÄ±, EndGame() Ã§aÄŸrÄ±lÄ±yor.");
         //    _gameController.EndGame();
        // }
     }

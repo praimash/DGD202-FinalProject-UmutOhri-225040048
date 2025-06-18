@@ -5,6 +5,7 @@ using Random = UnityEngine.Random;
 
 public class PelletSpawner : MonoBehaviour
 {
+    
     [SerializeField] private GameObject _pelletPrefab;
 
     [Range(1,20)]
@@ -60,7 +61,7 @@ public class PelletSpawner : MonoBehaviour
         Debug.LogWarning("Uygun pozisyon bulunamadý!");
     }
 
-
+    
     public void SpawnPellets()
     {
         Debug.Log("SpawnPellets started");
