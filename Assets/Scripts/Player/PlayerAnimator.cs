@@ -1,15 +1,15 @@
 using UnityEngine;
-
 public class PlayerAnimator : MonoBehaviour
 {
-    private CubeMover _cubeMover;       // ✅ CubeMover ile eşleşti
+    [SerializeField] private CubeMover _cubeMover;  // Inspector'dan ata
     [SerializeField] private Transform _mesh;
 
     private float _moveSpeed;
 
     private void Awake()
     {
-        _cubeMover = GetComponent<CubeMover>();
+        if (_cubeMover == null)
+            _cubeMover = GetComponent<CubeMover>();
     }
 
     private void Start()
@@ -19,7 +19,7 @@ public class PlayerAnimator : MonoBehaviour
 
     private void Update()
     {
-        Vector3 velocity = _cubeMover.CurrentMovement; // ✅ Rigidbody yerine CubeMover'dan okuduk
+        Vector3 velocity = _cubeMover.CurrentMovement;
         float forwardVelocity = Vector3.Dot(velocity, transform.forward);
         if (forwardVelocity != 0)
         {
@@ -27,4 +27,6 @@ public class PlayerAnimator : MonoBehaviour
         }
     }
 }
+
+
 

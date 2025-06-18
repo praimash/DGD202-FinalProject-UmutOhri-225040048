@@ -1,9 +1,11 @@
 using System;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PelletCollector : MonoBehaviour
 {
+    
     public static PelletCollector Instance;
     private PelletSpawner _pelletSpawner;
     private GameController _gameController;
@@ -30,25 +32,26 @@ public class PelletCollector : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
     }
 
-    private void Start()
-    {
-        _numberToCollect = _pelletSpawner.NumberToSpawn;
-    }
-
+    
+   
     public void ResetCounter()
     {
         _numberCollected = 0;
         _counter.text = "0";
     }
-    
+  
     public void PelletCollected()
     {
+        Debug.Log($"Toplanan: {_numberCollected} / Hedef: {_numberToCollect}");
         _audioSource.PlayOneShot(_audioSource.clip);
         _numberCollected++;
         _counter.text = _numberCollected.ToString();
-        if (_numberCollected >= _numberToCollect)
-        {
-            _gameController.EndGame();
-        }
+          
+        
+       // if (_numberCollected >= _numberToCollect)
+       // {
+          //  Debug.Log("Tüm toplar toplandý, EndGame() çaðrýlýyor.");
+        //    _gameController.EndGame();
+       // }
     }
 }
