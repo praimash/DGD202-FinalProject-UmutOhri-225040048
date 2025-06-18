@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
     [SerializeField] private GameObject _gameOverScreen;
-    [SerializeField] private float gameDuration = 5f;
+    [SerializeField] private TextMeshProUGUI _timerText;
+    [SerializeField] private float gameDuration = 30f;
 
     [SerializeField] private PelletSpawner _pelletSpawner;
     [SerializeField] private PelletCollector _pelletCollector;
@@ -30,8 +32,12 @@ public class GameController : MonoBehaviour
 
         if (_timer <= 0f)
         {
+            _timer = 0f;
             EndGame();
         }
+        int seconds = Mathf.FloorToInt(_timer % 60);
+        int minutes = Mathf.FloorToInt(_timer / 60);
+        _timerText.text = $"Time:{minutes:00}:{seconds:00}";
     }
 
     public void StartGame()
@@ -41,7 +47,8 @@ public class GameController : MonoBehaviour
         Time.timeScale = 1f;
         _gameEnded = false;     
         _timer = gameDuration;       
-        _gameOverScreen.SetActive(false);     
+        _gameOverScreen.SetActive(false);
+       // _pelletCollector.ResetCounter();
         _pelletSpawner.SpawnPellets(); 
     }
 

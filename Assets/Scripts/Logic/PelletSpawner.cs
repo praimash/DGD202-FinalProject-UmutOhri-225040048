@@ -16,12 +16,50 @@ public class PelletSpawner : MonoBehaviour
     private Vector2[] _pelletPositions;
 
     private float _detectionRadius = 1f;
-    
+
+    private bool _spawningEnabled = false;
+    [SerializeField] private float spawnInterval = 2f; // 2 saniyede bir yeni top
+
     private void Start()
     {
         _arenaExtents = _arenaSize * 0.5f;
-        SpawnPellets(); 
+
+        SpawnPellets(); // Baþlangýç toplarý
+        _spawningEnabled = true;
+        StartCoroutine(SpawnPelletsPeriodically()); // Oyun boyunca sürekli yeni top spawnla
     }
+    private System.Collections.IEnumerator SpawnPelletsPeriodically()
+    {
+        while (_spawningEnabled)
+        {
+            yield return new WaitForSeconds(spawnInterval);
+            SpawnPelletAtRandomPosition(); // 2 saniyede bir yeni top
+        }
+    }
+    private void SpawnPelletAtRandomPosition()
+    {
+        int attempts = 0;
+        while (attempts < 100)
+        {
+            attempts++;
+            float xPos = Random.Range(-_arenaExtents.x, _arenaExtents.x);
+            float zPos = Random.Range(-_arenaExtents.y, _arenaExtents.y);
+            Vector2 newPos = new Vector2(xPos, zPos);
+
+            if (NearAnotherPellet(newPos)) continue;
+
+            // Yeni pozisyonu kaydetme
+            Array.Resize(ref _pelletPositions, _pelletPositions.Length + 1);
+            _pelletPositions[_pelletPositions.Length - 1] = newPos;
+
+            SpawnPellet(newPos);
+            Debug.Log($"Yeni top spawnlandý: {newPos}");
+            return;
+        }
+
+        Debug.LogWarning("Uygun pozisyon bulunamadý!");
+    }
+
 
     public void SpawnPellets()
     {
