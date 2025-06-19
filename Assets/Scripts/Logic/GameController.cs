@@ -21,10 +21,13 @@ public class GameController : MonoBehaviour
         _pelletSpawner = GetComponent<PelletSpawner>();
         if (_pelletSpawner == null)
         {
-            Debug.LogError("PelletSpawner component not found on GameController!");
+        
         }
     }
-
+    private void Start()
+    {
+        StartGame();
+    }
     private void Update()
     {
         if (_gameEnded) return;
@@ -44,27 +47,19 @@ public class GameController : MonoBehaviour
     public void StartGame()
     {
 
-        Debug.Log("StartGame called, spawning pellets...");
+        
         Time.timeScale = 1f;
         _gameEnded = false;     
         _timer = gameDuration;       
         _gameOverScreen.SetActive(false);
-       // _pelletCollector.ResetCounter();
+       
         _pelletSpawner.SpawnPellets();
         _bombSpawner.SpawnOneBomb(); 
-         _bombSpawner.SpawnBombsInitial();
+        _bombSpawner.SpawnBombsInitial();
     }
 
 
-    private void ClearOldPellets()
-    {
-        GameObject[] pellets = GameObject.FindGameObjectsWithTag("Collectible");
-        foreach (GameObject pellet in pellets)
-        {
-            Destroy(pellet);
-        }
-    }
-
+  
 
 
 
@@ -73,19 +68,21 @@ public void EndGame()
         _gameEnded = true;
         _gameOverScreen.SetActive(true);
         Time.timeScale = 0f;
-        Debug.Log("Oyun bitti!");
+       
     }
 
-    // 🎮 Play Again butonundan çağrılır
     public void OnPlayAgain()
     {
-        // Sahnede topları temizle
+        
         foreach (var pellet in GameObject.FindGameObjectsWithTag("Collectible"))
         {
             Destroy(pellet);
         }
-        Debug.Log("onplayu");    
-        StartGame(); // ✅ Restart game & spawn new pellets
+        foreach (var bomb in GameObject.FindGameObjectsWithTag("Bomb"))
+        {
+            Destroy(bomb);
+        }
+        StartGame(); 
         
     }
 }

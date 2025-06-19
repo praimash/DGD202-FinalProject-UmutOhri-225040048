@@ -6,7 +6,7 @@ public class Pellet : MonoBehaviour
     {
         if (other.CompareTag("Player")) 
         {
-            Debug.Log("Pellet çarpışması algılandı"); 
+            
             PelletCollector.Instance.PelletCollected();
             Destroy(gameObject);
         }

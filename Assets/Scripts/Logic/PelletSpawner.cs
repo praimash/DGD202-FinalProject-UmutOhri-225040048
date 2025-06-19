@@ -19,22 +19,21 @@ public class PelletSpawner : MonoBehaviour
     private float _detectionRadius = 1f;
 
     private bool _spawningEnabled = false;
-    [SerializeField] private float spawnInterval = 2f; // 2 saniyede bir yeni top
-
+    [SerializeField] private float spawnInterval = 2f; 
     private void Start()
     {
         _arenaExtents = _arenaSize * 0.5f;
 
-        SpawnPellets(); // Baþlangýç toplarý
+        SpawnPellets(); 
         _spawningEnabled = true;
-        StartCoroutine(SpawnPelletsPeriodically()); // Oyun boyunca sürekli yeni top spawnla
+        StartCoroutine(SpawnPelletsPeriodically());
     }
     private System.Collections.IEnumerator SpawnPelletsPeriodically()
     {
         while (_spawningEnabled)
         {
             yield return new WaitForSeconds(spawnInterval);
-            SpawnPelletAtRandomPosition(); // 2 saniyede bir yeni top
+            SpawnPelletAtRandomPosition(); 
         }
     }
     private void SpawnPelletAtRandomPosition()
@@ -54,29 +53,29 @@ public class PelletSpawner : MonoBehaviour
             _pelletPositions[_pelletPositions.Length - 1] = newPos;
 
             SpawnPellet(newPos);
-            Debug.Log($"Yeni top spawnlandý: {newPos}");
+           
             return;
         }
 
-        Debug.LogWarning("Uygun pozisyon bulunamadý!");
+       
     }
 
     
     public void SpawnPellets()
     {
-        Debug.Log("SpawnPellets started");
+        
         _pelletPositions = new Vector2[NumberToSpawn];
 
         for (int i = 0; i < NumberToSpawn; i++)
         {
-            Debug.Log($"Trying to spawn pellet {i}");
+            
             int attempts = 0;
             while (_pelletPositions[i] == Vector2.zero)
             {
                 attempts++;
                 if (attempts > 100)
                 {
-                    Debug.LogWarning("Could not find valid spawn position!");
+                    
                     break;
                 }
 
@@ -90,10 +89,10 @@ public class PelletSpawner : MonoBehaviour
                 _pelletPositions[i] = pelletPosition;
 
                 SpawnPellet(pelletPosition);
-                Debug.Log($"Spawned pellet at {pelletPosition}");
+              
             }
         }
-        Debug.Log($"Spawned {NumberToSpawn} pellets");
+       
     }
 
 

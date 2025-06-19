@@ -26,6 +26,7 @@ public class BombSpawner : MonoBehaviour
 
     public  void SpawnBombsInitial()
     {
+        
         _bombPositions = new Vector2[initialBombCount];
 
         for (int i = 0; i < initialBombCount; i++)
@@ -36,7 +37,7 @@ public class BombSpawner : MonoBehaviour
                 attempts++;
                 if (attempts > 100)
                 {
-                    Debug.LogWarning("Valid bomba spawn pozisyonu bulunamadý!");
+                  
                     break;
                 }
 
@@ -56,6 +57,7 @@ public class BombSpawner : MonoBehaviour
 
     public void SpawnOneBomb()
     {
+        
         Vector2 bombPosition = Vector2.zero;
         int attempts = 0;
 
@@ -64,7 +66,7 @@ public class BombSpawner : MonoBehaviour
             attempts++;
             if (attempts > 100)
             {
-                Debug.LogWarning("Valid bomba spawn pozisyonu bulunamadý!");
+               
                 return;
             }
 

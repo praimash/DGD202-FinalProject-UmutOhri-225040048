@@ -1,16 +1,15 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody))]
 public class PlayerMover : MonoBehaviour
 {
+    [field: SerializeField] public float MoveSpeed { get; private set; } = 5f;
+    [SerializeField] private float _turnSpeed = 180f;
+    [SerializeField] private Animator _animator;
+
     private Rigidbody _rigidbody;
     private PlayerInput _playerInput;
     private InputAction _moveAction;
-
-    [Header("Movement Settings")]
-    [field: SerializeField] public float MoveSpeed { get; private set; } = 5f;
-    [SerializeField] private float _turnSpeed = 180f;
 
     private void Awake()
     {
@@ -24,6 +23,9 @@ public class PlayerMover : MonoBehaviour
     {
         Vector2 input = _moveAction.ReadValue<Vector2>();
         HandleMovement(input);
+
+        // Animasyon parametresi g�ncelle
+        _animator.SetFloat("Speed", Mathf.Abs(input.y));
     }
 
     private void HandleMovement(Vector2 direction)

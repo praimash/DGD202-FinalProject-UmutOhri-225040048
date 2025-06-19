@@ -1,17 +1,18 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTriggerEnter çalýþtý!");
+       
 
+        if (other.CompareTag("Player"))
+        {
+            Destroy(gameObject); // â›” BU, bombayÄ± yok eder
+            PelletCollector.Instance.BombHit();
+        }
 
-        Debug.Log("a!");
-        Destroy(gameObject);
-        Debug.Log("y");
-        PelletCollector.Instance.BombHit();
-        Debug.Log("d");
+    
 
 
     }

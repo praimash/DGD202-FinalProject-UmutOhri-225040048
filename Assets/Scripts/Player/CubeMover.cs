@@ -31,33 +31,6 @@ public class CubeMover : MonoBehaviour
         _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ; // iste�e g�re de�i�tirilebilir
     }
 
-    private void FixedUpdate() // ? Fiziksel hareketler i�in FixedUpdate
-    {
-        Vector2 inputVec = moveAction.ReadValue<Vector2>();
-        movement = new Vector3(inputVec.x, 0, inputVec.y);
-
-        if (movement.sqrMagnitude > 0.001f)
-        {
-            movement.Normalize();
-
-            // ?? Hareket ve Yuvarlanma
-            _rigidbody.linearVelocity = movement * moveSpeed;
-
-            Vector3 rotationAxis = Vector3.Cross(Vector3.up, movement);
-            _rigidbody.angularVelocity = rotationAxis * moveSpeed;
-
-            // D�n�� animasyonu i�in
-            Quaternion targetRot = Quaternion.LookRotation(movement);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationSpeed * Time.deltaTime);
-        }
-        else
-        {
-            _rigidbody.linearVelocity = Vector3.zero;
-            _rigidbody.angularVelocity = Vector3.zero;
-        }
-
-        // ??? Animasyon kontrol�
-        animator.SetFloat(speedParam, movement.magnitude);
-    }
+   
 }
 

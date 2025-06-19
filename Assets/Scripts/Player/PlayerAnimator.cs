@@ -1,10 +1,9 @@
 using UnityEngine;
+
 public class PlayerAnimator : MonoBehaviour
 {
-    [SerializeField] private CubeMover _cubeMover;  // Inspector'dan ata
+    [SerializeField] private CubeMover _cubeMover;
     [SerializeField] private Transform _mesh;
-
-    private float _moveSpeed;
 
     private void Awake()
     {
@@ -12,21 +11,19 @@ public class PlayerAnimator : MonoBehaviour
             _cubeMover = GetComponent<CubeMover>();
     }
 
-    private void Start()
-    {
-        _moveSpeed = _cubeMover.MoveSpeed;
-    }
-
     private void Update()
     {
-        Vector3 velocity = _cubeMover.CurrentMovement;
-        float forwardVelocity = Vector3.Dot(velocity, transform.forward);
-        if (forwardVelocity != 0)
+        if (_cubeMover == null || _mesh == null)
         {
-            _mesh.localRotation *= Quaternion.Euler(Mathf.Deg2Rad * (360 / forwardVelocity), 0, 0);
+            
+            return;
+        }
+
+        Vector3 velocity = _cubeMover.CurrentMovement;
+        if (velocity.sqrMagnitude > 0.01f)
+        {
+            float rotateAmount = 360f * Time.deltaTime * 50f; // Dönme hýzý (isteðe göre ayarla)
+            _mesh.Rotate(Vector3.right, rotateAmount);
         }
     }
 }
-
-
-

@@ -840,6 +840,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 552781803}
+  - component: {fileID: 552781808}
   - component: {fileID: 552781804}
   - component: {fileID: 552781805}
   - component: {fileID: 552781806}
@@ -878,8 +879,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a0aa20dd37ee4438558fc5310e1237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bombPrefab: {fileID: 1592290730}
-  bombSpawnChance: 1
   _pelletPrefab: {fileID: 1434986228602182786, guid: 829e671261a438040abdcd83bac97fae, type: 3}
   NumberToSpawn: 7
   _arenaSize: {x: 17, y: 17}
@@ -896,7 +895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98f4224be1782d84597ef588c518d63c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _counter: {fileID: 0}
+  _counter: {fileID: 1722368438}
 --- !u!114 &552781806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1011,6 +1010,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &552781808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552781802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56ff218ff2d07fc44b2669842dbe8812, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bombPrefab: {fileID: 1592290730}
+  _arenaSize: {x: 17, y: 17}
+  initialBombCount: 3
+  bombSpawnInterval: 1
+  _bombDetectionRadius: 1
 --- !u!1 &607410245
 GameObject:
   m_ObjectHideFlags: 0
@@ -2087,7 +2103,7 @@ GameObject:
   - component: {fileID: 1722368439}
   - component: {fileID: 1722368438}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2542,6 +2558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MoveSpeed>k__BackingField: 10
   _turnSpeed: 300
+  _animator: {fileID: 0}
 --- !u!1 &2098595895
 GameObject:
   m_ObjectHideFlags: 0
@@ -2931,7 +2948,7 @@ MonoBehaviour:
   moveSpeed: 10
   rotationSpeed: 10
   animator: {fileID: 7441440909203288311}
-  speedParam: 1
+  speedParam: 10
 --- !u!135 &7441440909203288309
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2982,12 +2999,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7441440909203288300}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 142cdbee0772d1a40b5d1ed4e20c8992, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cubeMover: {fileID: 0}
+  _cubeMover: {fileID: 7441440909203288308}
   _mesh: {fileID: -8679921383154817045, guid: 2b3788a0f64f23449a9c118bcd1db04d, type: 3}
 --- !u!114 &7441440909203288313
 MonoBehaviour:
