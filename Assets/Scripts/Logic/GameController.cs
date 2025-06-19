@@ -52,7 +52,6 @@ public class GameController : MonoBehaviour
         _gameEnded = false;     
         _timer = gameDuration;       
         _gameOverScreen.SetActive(false);
-       
         _pelletSpawner.SpawnPellets();
         _bombSpawner.SpawnOneBomb(); 
         _bombSpawner.SpawnBombsInitial();

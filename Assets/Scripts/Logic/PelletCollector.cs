@@ -10,6 +10,8 @@ public class PelletCollector : MonoBehaviour
     private PelletSpawner _pelletSpawner;
     private GameController _gameController;
     private AudioSource _audioSource;
+    [SerializeField] private AudioClip bombClip;
+
     [SerializeField] private TextMeshProUGUI _counter;
     
     
@@ -42,7 +44,8 @@ public class PelletCollector : MonoBehaviour
     public void BombHit()
     {
         Debug.Log($"💣 Bomb hit! Before: {_numberCollected}");
-        _audioSource.PlayOneShot(_audioSource.clip);      
+        _audioSource.PlayOneShot(bombClip);
+
         _numberCollected--;
         _counter.text = _numberCollected.ToString();
 
